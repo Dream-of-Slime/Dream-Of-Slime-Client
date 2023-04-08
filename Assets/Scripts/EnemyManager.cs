@@ -6,30 +6,47 @@ namespace Slime
 {
     public class EnemyManager : MonoBehaviour
     {
-        [SerializeField] static List<GameObject> EnemySamples;
-        static List<List<GameObject>> EnemyPools;
+        public static EnemyManager instance;
 
-        [SerializeField] static Transform EnemyParent;
+        [SerializeField] List<GameObject> EnemySamples;
+        List<List<GameObject>> EnemyPools;
 
-        static int SpawnOffset = 100;
+        [SerializeField] Transform EnemyParent;
+
+        int SpawnOffset = 100;
 
         void Awake()
         {
-            EnemySamples = new List<GameObject>();
+            if (instance == null)
+            {
+                instance = this;
+            }
+
             EnemyPools = new List<List<GameObject>>();
 
             for (int i = 0; i < EnemySamples.Count; i++)
             {
                 EnemyGenerate(i, 100);
             }
+
+            StartCoroutine("GenerateTest");
         }
 
         void Update()
         {
-
+            
         }
 
-        public static void EnemyGenerate(int enemy, int amount)
+        IEnumerator GenerateTest()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(0.5f);
+                EnemyActive(0, 1);
+            }
+        }
+
+        public void EnemyGenerate(int enemy, int amount)
         {
             for (int i = 0; i < amount; i++)
             {
@@ -43,14 +60,14 @@ namespace Slime
             }
         }
 
-        public static void EnemyActive(int enemy, int amount)
+        public void EnemyActive(int enemy, int amount)
         {
             int actived = 0;
             for (int i = 0; i < EnemyPools[enemy].Count; i++)
             {
                 if (!EnemyPools[enemy][i].activeSelf)
                 {
-                    int random = Random.Range(0, 4);
+                    int random = Random.Range(0, 3);
                     int randomX = 0;
                     int randomY = 0;
 
