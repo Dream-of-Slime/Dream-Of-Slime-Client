@@ -245,6 +245,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc8d6b559d114547beec6dca40733ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _skillsFire:
+  - {fileID: 999461277497173596, guid: dd55d36b25f1c774388d0512c16211ed, type: 3}
+  _skillsWind: []
+  _skillsLightning: []
+  _skillParent: {fileID: 0}
 --- !u!4 &320927734
 Transform:
   m_ObjectHideFlags: 0

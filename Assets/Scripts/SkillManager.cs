@@ -7,6 +7,7 @@ public class SkillManager : MonoBehaviour
     public static SkillManager instance;
 
     PlayerMove PM;
+    Transform _player;
 
     public List<GameObject> _skillsFire;
     public List<GameObject> _skillsWind;
@@ -23,6 +24,10 @@ public class SkillManager : MonoBehaviour
         }
 
         PM = PlayerMove.instance;
+        _player = PM.transform;
+
+        _skills = new Dictionary<string, List<GameObject>>();
+        _skillPool = new Dictionary<string, List<List<GameObject>>>();
 
         _skills.Add("Fire", _skillsFire);
         _skills.Add("Wind", _skillsWind);
@@ -47,7 +52,7 @@ public class SkillManager : MonoBehaviour
             _tempWind.Add(new List<GameObject>());
         }
         _skillPool.Add("Wind", _tempWind);
-        for (int i = 0; i < _skillsFire.Count; i++)
+        for (int i = 0; i < _skillsWind.Count; i++)
         {
             SkillGenerate("Wind", i, 5);
         }
@@ -57,9 +62,20 @@ public class SkillManager : MonoBehaviour
             _tempLightning.Add(new List<GameObject>());
         }
         _skillPool.Add("Lightning", _tempLightning);
-        for (int i = 0; i < _skillsFire.Count; i++)
+        for (int i = 0; i < _skillsLightning.Count; i++)
         {
             SkillGenerate("Lightning", i, 5);
+        }
+
+        StartCoroutine("ActiveTest");
+    }
+
+    IEnumerator ActiveTest()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(0.5f);
+            StartCoroutine(Delay_SkillActive("Fire", 0, 1));
         }
     }
 
@@ -76,11 +92,12 @@ public class SkillManager : MonoBehaviour
                     if (skill == 0)
                     {
                         float random = Random.Range(-0.2f, 0.2f);
-                        _skillPool[name][skill][i].transform.position = transform.position + transform.right * random;
+                        _skillPool[name][skill][i].transform.position = _player.position + _player.transform.forward * random;
+                        _skillPool[name][skill][i].transform.rotation = _player.rotation;
                     }
                     else
                     {
-                        _skillPool[name][skill][i].transform.position = transform.position;
+                        _skillPool[name][skill][i].transform.position = _player.transform.position;
                     }
                     _skillPool[name][skill][i].SetActive(true);
                     actived++;
