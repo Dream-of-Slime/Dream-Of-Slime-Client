@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 519287303024502884}
   m_Layer: 0
   m_Name: Skill_Fire_1
-  m_TagString: Untagged
+  m_TagString: Skill
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,9 +99,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillData: {fileID: 11400000, guid: 15e409264703c6144bffff9d9f49a570, type: 2}
-  name: 
-  skill: 0
-  count: 0
 --- !u!70 &519287303024502884
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

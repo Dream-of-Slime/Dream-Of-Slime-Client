@@ -31,12 +31,4 @@ public class EnemyMove : MonoBehaviour
     {
         transform.position = new Vector2(transform.position.x + Dir.x * (Speed * Time.deltaTime), transform.position.y + Dir.y * (Speed * Time.deltaTime));
     }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Wall"))
-        {
-            gameObject.SetActive(false);
-        }
-    }
 }
