@@ -28,6 +28,9 @@ public class PlayerMove : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         Vector3 dir = Vector3.zero;
+#if UNITY_EDITOR
+        speed = keyboardSpeed;
+#endif
     }
 
     // Update is called once per frame
@@ -38,13 +41,10 @@ public class PlayerMove : MonoBehaviour
 #else
         GyroMove();
 #endif
-       
+       GeneralMove();
     }
 
-    void GyroMove(){
-        dir.x = Input.acceleration.x;
-        dir.y = Input.acceleration.y;
-
+    void GeneralMove() {
         if(dir.sqrMagnitude > 1) dir.Normalize();
 
         dir *= Time.deltaTime;
@@ -52,21 +52,17 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = new Vector2(dir.x * speed, dir.y * speed);
 
         angle = Mathf.Atan2(dir.x * -1,dir.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+
+        if(dir.x != 0 || dir.y != 0) transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+    }
+
+    void GyroMove(){
+        dir.x = Input.acceleration.x;
+        dir.y = Input.acceleration.y;        
     }
 
     void KeyBoardMove(){
         dir.x = Input.GetAxis("Horizontal");
         dir.y = Input.GetAxis("Vertical");
-
-        if(dir.sqrMagnitude > 1) dir.Normalize();
-
-        dir *= Time.deltaTime;
-
-        rb.velocity = new Vector2(dir.x * keyboardSpeed, dir.y * keyboardSpeed);
-
-        angle = Mathf.Atan2(dir.x * -1,dir.y) * Mathf.Rad2Deg;
-
-        if(dir.x != 0 && dir.y != 0) transform.rotation = Quaternion.Euler(Vector3.forward * angle);
     }
 }
