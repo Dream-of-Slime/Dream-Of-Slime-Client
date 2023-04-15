@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_Fire_1 : MonoBehaviour
+public class Skill_Fire_1 : Skill
 {
     SkillManager SM;
-
-    [SerializeField] float _speed;
 
     void Awake()
     {
@@ -15,7 +13,7 @@ public class Skill_Fire_1 : MonoBehaviour
 
     void Update()
     {
-        transform.position += transform.up * (_speed * Time.deltaTime);
+        transform.position += transform.up * (SkillData._speed * Time.deltaTime);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

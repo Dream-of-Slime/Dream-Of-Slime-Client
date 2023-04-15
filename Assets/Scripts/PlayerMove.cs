@@ -66,6 +66,7 @@ public class PlayerMove : MonoBehaviour
         rb.velocity = new Vector2(dir.x * keyboardSpeed, dir.y * keyboardSpeed);
 
         angle = Mathf.Atan2(dir.x * -1,dir.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+
+        if(dir.x != 0 && dir.y != 0) transform.rotation = Quaternion.Euler(Vector3.forward * angle);
     }
 }
