@@ -4,23 +4,10 @@ using UnityEngine;
 
 public class Skill_Fire_1 : Skill
 {
-    SkillManager SM;
-
-    void Awake()
+    public override void Update()
     {
-        SM = SkillManager.instance;
-    }
+        base.Update();
 
-    void Update()
-    {
         transform.position += transform.up * (SkillData._speed * Time.deltaTime);
-    }
-
-    void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Enemy"))
-        {
-            collision.gameObject.SetActive(false);
-        }
     }
 }
