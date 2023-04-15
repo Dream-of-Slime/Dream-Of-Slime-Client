@@ -98,7 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 109a9e2a37dd4084dbecd3694c481048, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  skillData: {fileID: 11400000, guid: 15e409264703c6144bffff9d9f49a570, type: 2}
+  name: 
+  skill: 0
+  count: 0
 --- !u!70 &519287303024502884
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
