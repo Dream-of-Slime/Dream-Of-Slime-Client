@@ -18,7 +18,15 @@ public class AdmobBannerAd : MonoBehaviour
             //초기화 완료
         });
         
-        adUnitId = "ca-app-pub-3275083763875293~7275079462";
+        // var requestConfiguration = new RequestConfiguration
+        //         .Builder()
+        //     .SetTestDeviceIds(new List<string>() { "1DF7B7CC05014E8" })
+        //     .build();
+        //
+        // MobileAds.SetRequestConfiguration(requestConfiguration);
+
+        adUnitId = "ca-app-pub-3940256099942544/6300978111";
+        //adUnitId = "ca-app-pub-3275083763875293~7275079462";
 
         LoadAd();
     }
@@ -32,7 +40,7 @@ public class AdmobBannerAd : MonoBehaviour
         var adRequest = new AdRequest.Builder()
             .AddKeyword("unity-admob-sample")
             .Build();
-
+        
         Debug.Log("Loading banner ad.");
         _bannerView.LoadAd(adRequest);
     }
@@ -46,7 +54,7 @@ public class AdmobBannerAd : MonoBehaviour
             DestroyAd();
         }
         
-        _bannerView = new BannerView(adUnitId, AdSize.SmartBanner, AdPosition.Bottom);
+        _bannerView = new BannerView(adUnitId, AdSize.IABBanner, AdPosition.Bottom);
     }
     
     private void ListenToAdEvents()
