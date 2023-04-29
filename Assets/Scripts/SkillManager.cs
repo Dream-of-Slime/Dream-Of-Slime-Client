@@ -200,29 +200,32 @@ public class SkillManager : MonoBehaviour
                 int random = Random.Range(0, 3);
                 int randomX = 0;
                 int randomY = 0;
+                int resX = ResolutionManager.ResolutionX;
+                int resY = ResolutionManager.ResolutionY;
 
                 if (random == 0)
                 {
                     randomX = -SpawnOffset;
-                    randomY = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionY);
+                    randomY = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionY);
                 }
                 else if (random == 1)
                 {
-                    randomX = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionX);
+                    randomX = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionX);
                     randomY = SpawnOffset + ResolutionManager.ResolutionY;
                 }
                 else if (random == 2)
                 {
                     randomX = SpawnOffset + ResolutionManager.ResolutionX;
-                    randomY = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionY);
+                    randomY = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionY);
                 }
                 else if (random == 3)
                 {
-                    randomX = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionX);
+                    randomX = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionX);
                     randomY = -SpawnOffset;
                 }
 
                 _skillItemPool[i].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(randomX, randomY, 0));
+                _skillItemPool[i].GetComponent<SkillItemMove>()._wall = random;
                 _skillItemPool[i].SetActive(true);
                 actived++;
                 if (actived >= amount)

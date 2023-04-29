@@ -116,5 +116,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minSpeed: 1
   _maxSpeed: 3
-  _minAngle: -30
-  _maxAngle: 30
+  _minAngle: -50
+  _maxAngle: 50
+  _wall: 0

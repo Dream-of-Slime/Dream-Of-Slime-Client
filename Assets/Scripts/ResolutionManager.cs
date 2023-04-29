@@ -55,14 +55,14 @@ namespace Slime
             DestroyWalls[3].size = new Vector2(ResolutionX * 0.5f, 1);
 
             BlockWalls[0].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(0, ResolutionY * 0.5f, 0)) + Vector3.right * (ResolutionX * -0.001f);
-            BlockWalls[1].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(ResolutionX * 0.5f, ResolutionY, 0)) + Vector3.up * (ResolutionY * 0.001f);
+            BlockWalls[1].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(ResolutionX * 0.5f, ResolutionY, 0)) + Vector3.up * (ResolutionX * 0.001f);
             BlockWalls[2].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(ResolutionX, ResolutionY * 0.5f, 0)) + Vector3.right * (ResolutionX * 0.001f);
-            BlockWalls[3].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(ResolutionX * 0.5f, 0, 0)) + Vector3.up * (ResolutionY * -0.001f);
+            BlockWalls[3].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(ResolutionX * 0.5f, 0, 0)) + Vector3.up * (ResolutionX * -0.001f);
 
             BlockWalls[0].size = new Vector2(ResolutionX * 0.002f, ResolutionY * 0.5f);
-            BlockWalls[1].size = new Vector2(ResolutionX * 0.5f, ResolutionY * 0.002f);
+            BlockWalls[1].size = new Vector2(ResolutionX * 0.002f, ResolutionY * 0.5f);
             BlockWalls[2].size = new Vector2(ResolutionX * 0.002f, ResolutionY * 0.5f);
-            BlockWalls[3].size = new Vector2(ResolutionX * 0.5f, ResolutionY * 0.002f);
+            BlockWalls[3].size = new Vector2(ResolutionX * 0.002f, ResolutionY * 0.5f);
         }
     }
 }
