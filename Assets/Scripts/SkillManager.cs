@@ -27,9 +27,9 @@ public class SkillManager : MonoBehaviour
     void Awake()
     {
         print(Mathf.Tan(0));
-        print(Mathf.Tan(Mathf.Rad2Deg * Mathf.PI / 6));
-        print(Mathf.Tan(Mathf.Rad2Deg * Mathf.PI / 4));
-        print(Mathf.Tan(Mathf.Rad2Deg * Mathf.PI / 3));
+        print(Mathf.Tan(Mathf.PI / 6));
+        print(Mathf.Tan(Mathf.PI / 4));
+        print(Mathf.Tan(Mathf.PI / 3));
         if (instance == null)
         {
             instance = this;
