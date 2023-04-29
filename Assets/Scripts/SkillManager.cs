@@ -16,6 +16,8 @@ public class SkillManager : MonoBehaviour
     Dictionary<string, List<List<GameObject>>> _skillPool;
     [SerializeField] Transform _skillParent;
 
+    public int _skillLevel;
+
     void Awake()
     {
         if (instance == null)
@@ -67,6 +69,8 @@ public class SkillManager : MonoBehaviour
             SkillGenerate("Lightning", i, 5);
         }
 
+        _skillLevel = 0;
+
         StartCoroutine("ActiveTest");
     }
 
@@ -75,7 +79,8 @@ public class SkillManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            StartCoroutine(Delay_SkillActive("Fire", 0, 1));
+            _skillLevel = _skillLevel == 1 ? 0:1;
+            StartCoroutine(Delay_SkillActive("Fire", _skillLevel, 1));
         }
     }
 
@@ -89,16 +94,11 @@ public class SkillManager : MonoBehaviour
             {
                 if (name == "Fire")
                 {
-                    if (skill == 0)
-                    {
-                        float random = Random.Range(-0.2f, 0.2f);
-                        _skillPool[name][skill][i].transform.position = _player.position + _player.transform.forward * random;
-                        _skillPool[name][skill][i].transform.rotation = _player.rotation;
-                    }
-                    else
-                    {
-                        _skillPool[name][skill][i].transform.position = _player.transform.position;
-                    }
+                    
+                    float random = Random.Range(-0.2f, 0.2f);
+                    _skillPool[name][skill][i].transform.position = _player.position + _player.transform.forward * random;
+                    _skillPool[name][skill][i].transform.rotation = _player.rotation;
+                    
                     _skillPool[name][skill][i].SetActive(true);
                     actived++;
                     if (actived >= amount)
