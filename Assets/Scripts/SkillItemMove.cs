@@ -2,26 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class SkillItemMove : MonoBehaviour
 {
-    PlayerMove PM;
-
-    [SerializeField] float _speed;
-    Transform _player;
+    [SerializeField] float _minSpeed;
+    [SerializeField] float _maxSpeed;
+    [SerializeField] float _minAngle;
+    [SerializeField] float _maxAngle;
+    float _speed;
     Vector2 _dir;
     float _angle;
 
 
     void Awake()
     {
-        PM = PlayerMove.instance;
-        _player = PM.transform;
+        _speed = Random.Range(_minSpeed, _maxSpeed);
+        _angle = Random.Range(Mathf.Tan(_minAngle), Mathf.Tan(_maxAngle));
     }
 
     void OnEnable()
     {
-
-        _dir = (_player.transform.position - transform.position);
+        _dir = new Vector2(_angle, 1);
         _dir = _dir.normalized;
         _angle = Mathf.Atan2(-_dir.x, _dir.y) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(Vector3.forward * _angle);

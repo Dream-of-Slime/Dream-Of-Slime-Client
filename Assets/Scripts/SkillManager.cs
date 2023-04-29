@@ -1,6 +1,9 @@
+using Slime;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class SkillManager : MonoBehaviour
 {
@@ -9,6 +12,9 @@ public class SkillManager : MonoBehaviour
     PlayerMove PM;
     Transform _player;
 
+    public GameObject _skillItem;
+    List<GameObject> _skillItemPool;
+
     public List<GameObject> _skillsFire;
     public List<GameObject> _skillsWind;
     public List<GameObject> _skillsLightning;
@@ -16,10 +22,14 @@ public class SkillManager : MonoBehaviour
     Dictionary<string, List<List<GameObject>>> _skillPool;
     [SerializeField] Transform _skillParent;
 
-    public int _skillLevel;
+    int SpawnOffset = 100;
 
     void Awake()
     {
+        print(Mathf.Tan(0));
+        print(Mathf.Tan(Mathf.Rad2Deg * Mathf.PI / 6));
+        print(Mathf.Tan(Mathf.Rad2Deg * Mathf.PI / 4));
+        print(Mathf.Tan(Mathf.Rad2Deg * Mathf.PI / 3));
         if (instance == null)
         {
             instance = this;
@@ -27,6 +37,10 @@ public class SkillManager : MonoBehaviour
 
         PM = PlayerMove.instance;
         _player = PM.transform;
+
+        _skillItemPool = new List<GameObject>();
+
+        SkillItemGenerate(5);
 
         _skills = new Dictionary<string, List<GameObject>>();
         _skillPool = new Dictionary<string, List<List<GameObject>>>();
@@ -69,9 +83,8 @@ public class SkillManager : MonoBehaviour
             SkillGenerate("Lightning", i, 5);
         }
 
-        _skillLevel = 0;
-
         StartCoroutine("ActiveTest");
+        StartCoroutine("ItemActiveTest");
     }
 
     IEnumerator ActiveTest()
@@ -79,8 +92,16 @@ public class SkillManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            _skillLevel = _skillLevel == 1 ? 0:1;
-            StartCoroutine(Delay_SkillActive("Fire", _skillLevel, 1));
+            StartCoroutine(Delay_SkillActive("Fire", 0, 1));
+        }
+    }
+
+    IEnumerator ItemActiveTest()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(3f);
+            StartCoroutine(Delay_SkillItemActive(1));
         }
     }
 
@@ -94,11 +115,9 @@ public class SkillManager : MonoBehaviour
             {
                 if (name == "Fire")
                 {
-                    
                     float random = Random.Range(-0.2f, 0.2f);
                     _skillPool[name][skill][i].transform.position = _player.position + _player.transform.forward * random;
                     _skillPool[name][skill][i].transform.rotation = _player.rotation;
-                    
                     _skillPool[name][skill][i].SetActive(true);
                     actived++;
                     if (actived >= amount)
@@ -149,8 +168,8 @@ public class SkillManager : MonoBehaviour
 
         if (actived < amount)
         {
-            SkillGenerate(name, skill, amount);
-            StartCoroutine(Delay_SkillActive(name, skill, amount));
+            SkillGenerate(name, skill, amount - actived);
+            StartCoroutine(Delay_SkillActive(name, skill, amount - actived));
         }
     }
 
@@ -161,6 +180,69 @@ public class SkillManager : MonoBehaviour
             GameObject temp = Instantiate(_skills[name][skill], _skillParent);
             temp.SetActive(false);
             _skillPool[name][skill].Add(temp);
+        }
+    }
+
+    void SkillItemGenerate(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            GameObject temp = Instantiate(_skillItem, _skillParent);
+            temp.SetActive(false);
+            _skillItemPool.Add(temp);
+        }
+    }
+
+    public IEnumerator Delay_SkillItemActive(int amount)
+    {
+        int actived = 0;
+
+        for (int i = 0; i < _skillItemPool.Count; i++)
+        {
+            if (!_skillItemPool[i].activeSelf)
+            {
+                int random = Random.Range(0, 3);
+                int randomX = 0;
+                int randomY = 0;
+
+                if (random == 0)
+                {
+                    randomX = -SpawnOffset;
+                    randomY = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionY);
+                }
+                else if (random == 1)
+                {
+                    randomX = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionX);
+                    randomY = SpawnOffset + ResolutionManager.ResolutionY;
+                }
+                else if (random == 2)
+                {
+                    randomX = SpawnOffset + ResolutionManager.ResolutionX;
+                    randomY = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionY);
+                }
+                else if (random == 3)
+                {
+                    randomX = Random.Range(-SpawnOffset, SpawnOffset + ResolutionManager.ResolutionX);
+                    randomY = -SpawnOffset;
+                }
+
+                _skillItemPool[i].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(randomX, randomY, 0));
+                _skillItemPool[i].SetActive(true);
+                actived++;
+                if (actived >= amount)
+                {
+                    goto Point1;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }
+
+    Point1:
+
+        if (actived < amount)
+        {
+            SkillItemGenerate(amount - actived);
+            StartCoroutine(Delay_SkillItemActive(amount - actived));
         }
     }
 }
