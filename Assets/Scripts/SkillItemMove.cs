@@ -18,7 +18,7 @@ public class SkillItemMove : MonoBehaviour
     void OnEnable()
     {
         _speed = Random.Range(_minSpeed, _maxSpeed);
-        _angle = Random.Range(Mathf.Tan(Mathf.Deg2Rad * _minAngle), Mathf.Tan(Mathf.Deg2Rad * _maxAngle));
+
         if (_wall == 0)
         {
             _dir = new Vector2(1, _angle);
@@ -31,6 +31,48 @@ public class SkillItemMove : MonoBehaviour
         {
             _dir = new Vector2(-1, _angle);
         }
+
+        if (_wall == 0)
+        {
+            if (transform.position.y < 0)
+            {
+                _angle = Random.Range(0, Mathf.Tan(Mathf.Deg2Rad * _maxAngle));
+            }
+            else
+            {
+                _angle = Random.Range(Mathf.Tan(Mathf.Deg2Rad * _minAngle), 0);
+            }
+
+            _dir = new Vector2(1, _angle);
+        }
+        else if (_wall == 1)
+        {
+            if (transform.position.x < 0)
+            {
+                _angle = Random.Range(0, Mathf.Tan(Mathf.Deg2Rad * _maxAngle));
+            }
+            else
+            {
+                _angle = Random.Range(Mathf.Tan(Mathf.Deg2Rad * _minAngle), 0);
+            }
+
+            _dir = new Vector2(_angle, -1);
+        }
+        else if (_wall == 2)
+        {
+
+            if (transform.position.y < 0)
+            {
+                _angle = Random.Range(0, Mathf.Tan(Mathf.Deg2Rad * _maxAngle));
+            }
+            else
+            {
+                _angle = Random.Range(Mathf.Tan(Mathf.Deg2Rad * _minAngle), 0);
+            }
+
+            _dir = new Vector2(-1, _angle);
+        }
+
         _dir = _dir.normalized;
         //_angle = Mathf.Atan2(-_dir.x, _dir.y) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.Euler(Vector3.forward * _angle);
