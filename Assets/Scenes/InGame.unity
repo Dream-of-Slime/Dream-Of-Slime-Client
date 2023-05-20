@@ -284,7 +284,8 @@ MonoBehaviour:
   _skillsFire:
   - {fileID: 999461277497173596, guid: dd55d36b25f1c774388d0512c16211ed, type: 3}
   _skillsWind: []
-  _skillsLightning: []
+  _skillsLightning:
+  - {fileID: 3906177114209242539, guid: c3028a758fb14464ab70bde2af88cbb3, type: 3}
   _skillParent: {fileID: 387081493}
 --- !u!4 &320927734
 Transform:
