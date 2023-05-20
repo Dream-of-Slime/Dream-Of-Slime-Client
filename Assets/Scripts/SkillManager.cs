@@ -97,7 +97,7 @@ public class SkillManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(0.5f);
-            StartCoroutine(Delay_SkillActive("Fire", 0, 1));
+            StartCoroutine(Delay_SkillActive("Lightning", 0, 1));
         }
     }
 

@@ -287,6 +287,7 @@ MonoBehaviour:
   _skillsLightning:
   - {fileID: 3906177114209242539, guid: c3028a758fb14464ab70bde2af88cbb3, type: 3}
   _skillParent: {fileID: 387081493}
+  _activedItem: []
 --- !u!4 &320927734
 Transform:
   m_ObjectHideFlags: 0
