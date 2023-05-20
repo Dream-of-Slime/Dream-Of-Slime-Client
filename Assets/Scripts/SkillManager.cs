@@ -1,6 +1,7 @@
 using Slime;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections.LowLevel.Unsafe;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -22,6 +23,8 @@ public class SkillManager : MonoBehaviour
     Dictionary<string, List<List<GameObject>>> _skillPool;
     [SerializeField] Transform _skillParent;
 
+    [HideInInspector] public List<GameObject> _activedItem;
+
     int SpawnOffset = 100;
 
     void Awake()
@@ -40,6 +43,7 @@ public class SkillManager : MonoBehaviour
 
         _skills = new Dictionary<string, List<GameObject>>();
         _skillPool = new Dictionary<string, List<List<GameObject>>>();
+        _activedItem = new List<GameObject>();
 
         _skills.Add("Fire", _skillsFire);
         _skills.Add("Wind", _skillsWind);
@@ -48,6 +52,7 @@ public class SkillManager : MonoBehaviour
         List<List<GameObject>> _tempFire = new List<List<GameObject>>();
         List<List<GameObject>> _tempWind = new List<List<GameObject>>();
         List<List<GameObject>> _tempLightning = new List<List<GameObject>>();
+
 
         for (int i = 0; i < _skillsFire.Count; i++)
         {
@@ -80,7 +85,11 @@ public class SkillManager : MonoBehaviour
         }
 
         StartCoroutine("ActiveTest");
-        StartCoroutine("ItemActiveTest");
+    }
+
+    private void Start()
+    {
+        ItemActiveTest();
     }
 
     IEnumerator ActiveTest()
@@ -92,12 +101,44 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    IEnumerator ItemActiveTest()
+    public void ItemActiveTest()
     {
-        while (true)
+        foreach (var item in _activedItem)
         {
-            yield return new WaitForSeconds(3f);
-            StartCoroutine(Delay_SkillItemActive(1));
+            item.SetActive(false);
+        }
+        _activedItem.Clear();
+
+        int actived = 0;
+        int first = -1;
+        int second = -1;
+
+        while (actived < 3)
+        {
+            int random = Random.Range(0, _skillPool.Count);
+            if (first == second && first == random) continue;
+
+            if (random == 0)
+            {
+                SkillItemActive(actived, "Fire");
+            }
+            else if (random == 1)
+            {
+                SkillItemActive(actived, "Wind");
+            }
+            else if (random == 2)
+            {
+                SkillItemActive(actived, "Lightning");
+            }
+            if (actived == 0)
+            {
+                first = random;
+            }
+            else if (actived == 1)
+            {
+                second = random;
+            }
+            actived++;
         }
     }
 
@@ -189,59 +230,45 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public IEnumerator Delay_SkillItemActive(int amount)
+    public void SkillItemActive(int wall, string type)
     {
-        int actived = 0;
-
         for (int i = 0; i < _skillItemPool.Count; i++)
         {
             if (!_skillItemPool[i].activeSelf)
             {
-                int random = Random.Range(0, 3);
                 int randomX = 0;
                 int randomY = 0;
                 int resX = ResolutionManager.ResolutionX;
                 int resY = ResolutionManager.ResolutionY;
 
-                if (random == 0)
+                if (wall == 0)
                 {
                     randomX = -SpawnOffset;
-                    randomY = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionY);
+                    randomY = Random.Range(SpawnOffset, -SpawnOffset + resY);
                 }
-                else if (random == 1)
+                else if (wall == 1)
                 {
-                    randomX = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionX);
-                    randomY = SpawnOffset + ResolutionManager.ResolutionY;
+                    randomX = Random.Range(SpawnOffset, -SpawnOffset + resX);
+                    randomY = SpawnOffset + resY;
                 }
-                else if (random == 2)
+                else if (wall == 2)
                 {
-                    randomX = SpawnOffset + ResolutionManager.ResolutionX;
-                    randomY = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionY);
+                    randomX = SpawnOffset + resX;
+                    randomY = Random.Range(SpawnOffset, -SpawnOffset + resY);
                 }
-                else if (random == 3)
+                else if (wall == 3)
                 {
-                    randomX = Random.Range(SpawnOffset, -SpawnOffset + ResolutionManager.ResolutionX);
+                    randomX = Random.Range(SpawnOffset, -SpawnOffset + resX);
                     randomY = -SpawnOffset;
                 }
 
                 _skillItemPool[i].transform.position = Camera.main.ScreenToWorldPoint(new Vector3(randomX, randomY, 0));
-                _skillItemPool[i].GetComponent<SkillItemMove>()._wall = random;
+                _skillItemPool[i].GetComponent<SkillItemMove>()._wall = wall;
+                _skillItemPool[i].GetComponent<SkillItemMove>()._type = type;
                 _skillItemPool[i].SetActive(true);
-                actived++;
-                if (actived >= amount)
-                {
-                    goto Point1;
-                }
+                _activedItem.Add(_skillItemPool[i]);
+                return;
             }
-            yield return new WaitForEndOfFrame();
-        }
-
-    Point1:
-
-        if (actived < amount)
-        {
-            SkillItemGenerate(amount - actived);
-            StartCoroutine(Delay_SkillItemActive(amount - actived));
         }
     }
 }

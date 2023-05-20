@@ -14,6 +14,7 @@ public class SkillItemMove : MonoBehaviour
     bool _canReflect;
 
     [HideInInspector] public int _wall;
+    [HideInInspector] public string _type;
 
     void OnEnable()
     {
@@ -74,8 +75,6 @@ public class SkillItemMove : MonoBehaviour
         }
 
         _dir = _dir.normalized;
-        //_angle = Mathf.Atan2(-_dir.x, _dir.y) * Mathf.Rad2Deg;
-        //transform.rotation = Quaternion.Euler(Vector3.forward * _angle);
         _canReflect = false;
     }
 
@@ -90,8 +89,11 @@ public class SkillItemMove : MonoBehaviour
         {
             _dir = Vector2.Reflect(_dir, collision.transform.right);
             _dir = _dir.normalized;
-            //_angle = Mathf.Atan2(-_dir.x, _dir.y) * Mathf.Rad2Deg;
-            //transform.rotation = Quaternion.Euler(Vector3.forward * _angle);
+        }
+        else if (collision.tag == "Player")
+        {
+            SkillManager.instance.ItemActiveTest();
+            print(_type);
         }
     }
 
