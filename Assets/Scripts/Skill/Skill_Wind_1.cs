@@ -1,28 +1,32 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skill_Lightning_1_Child : Skill
+public class Skill_Wind_1 : Skill
 {
     private bool is_first = true;
+
+    Transform _player;
+
+    public override void Update()
+    {
+        base.Update();
+
+        transform.position = _player.transform.position;
+    }
 
     void OnEnable() {
         if(is_first) {
             is_first = false;
+            _player = GameObject.FindGameObjectWithTag("Player").transform;
             return;
         }
 
-        this.GetComponent<Collider2D>().enabled = false;
-        StartCoroutine(makeLightning());
+        StartCoroutine(makeWindAttack());
     }
 
-    IEnumerator makeLightning()
+    IEnumerator makeWindAttack()
     {
-        yield return new WaitForSeconds( SkillData._usingTime );
-
-        this.GetComponent<Collider2D>().enabled = true;
-
         yield return new WaitForSeconds( SkillData._attackDuration );
         
         this.gameObject.SetActive(false);
