@@ -283,7 +283,8 @@ MonoBehaviour:
   _skillItem: {fileID: 4901503246322794791, guid: c115376d3b9a3094aabf883d596f35c2, type: 3}
   _skillsFire:
   - {fileID: 999461277497173596, guid: dd55d36b25f1c774388d0512c16211ed, type: 3}
-  _skillsWind: []
+  _skillsWind:
+  - {fileID: 999461277497173596, guid: 47165204e5a990d4f9f6e74fe3253dbb, type: 3}
   _skillsLightning:
   - {fileID: 3906177114209242539, guid: c3028a758fb14464ab70bde2af88cbb3, type: 3}
   _skillParent: {fileID: 387081493}

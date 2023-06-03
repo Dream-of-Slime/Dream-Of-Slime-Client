@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48e5d652d81e4a40859402f91f63d93, type: 3}
   m_Name: WInd1
   m_EditorClassIdentifier: 
-  _usingTime: 0.4
-  _attackDuration: 0.2
-  _attackCount: 2
+  _usingTime: 0
+  _attackDuration: 0.4
+  _attackCount: 0
   _speed: 0
