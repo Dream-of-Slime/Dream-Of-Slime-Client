@@ -32,10 +32,10 @@ namespace Slime
             StartCoroutine("GenerateTest");
         }
 
-        void Update()
-        {
+        //void Update()
+        //{
             
-        }
+        //}
 
         IEnumerator GenerateTest()
         {

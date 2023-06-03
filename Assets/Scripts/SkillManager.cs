@@ -19,6 +19,9 @@ public class SkillManager : MonoBehaviour
     public List<GameObject> _skillsFire;
     public List<GameObject> _skillsWind;
     public List<GameObject> _skillsLightning;
+
+    public List<Sprite> _skillsIcons;
+
     Dictionary<string, List<GameObject>> _skills;
     Dictionary<string, List<List<GameObject>>> _skillPool;
     [SerializeField] Transform _skillParent;
@@ -26,6 +29,9 @@ public class SkillManager : MonoBehaviour
     [HideInInspector] public List<GameObject> _activedItem;
 
     int SpawnOffset = 100;
+    int _combo = 0;
+
+    string _prevSkill = null;
 
     void Awake()
     {
@@ -94,11 +100,12 @@ public class SkillManager : MonoBehaviour
 
     IEnumerator ActiveTest()
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(0.5f);
-            StartCoroutine(Delay_SkillActive("Lightning", 0, 1));
-        }
+        //while (true)
+        //{
+        //    yield return new WaitForSeconds(0.5f);
+        //    StartCoroutine(Delay_SkillActive("Lightning", 1));
+        //}
+        yield return new WaitForSeconds(0.5f);
     }
 
     public void ItemActiveTest()
@@ -113,7 +120,7 @@ public class SkillManager : MonoBehaviour
         int first = -1;
         int second = -1;
 
-        while (actived < 3)
+        while (actived < 1)
         {
             int random = Random.Range(0, _skillPool.Count);
             if (first == second && first == random) continue;
@@ -142,20 +149,30 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public IEnumerator Delay_SkillActive(string name, int skill, int amount)
+    public IEnumerator Delay_SkillActive(string name, int amount)
     {
         int actived = 0;
 
-        for (int i = 0; i < _skillPool[name][skill].Count; i++)
+        if (_prevSkill == name)
         {
-            if (!_skillPool[name][skill][i].activeSelf)
+            _combo = Mathf.Clamp(_combo + 1, 0, _skillPool[name].Count - 1);
+        }
+        else
+        {
+            _combo = 0;
+            _prevSkill = name;
+        }
+
+        for (int i = 0; i < _skillPool[name][_combo].Count; i++)
+        {
+            if (!_skillPool[name][_combo][i].activeSelf)
             {
                 if (name == "Fire")
                 {
                     float random = Random.Range(-0.2f, 0.2f);
-                    _skillPool[name][skill][i].transform.position = _player.position + _player.transform.forward * random;
-                    _skillPool[name][skill][i].transform.rotation = _player.rotation;
-                    _skillPool[name][skill][i].SetActive(true);
+                    _skillPool[name][_combo][i].transform.position = _player.position + _player.transform.forward * random;
+                    _skillPool[name][_combo][i].transform.rotation = _player.rotation;
+                    _skillPool[name][_combo][i].SetActive(true);
                     actived++;
                     if (actived >= amount)
                     {
@@ -164,7 +181,7 @@ public class SkillManager : MonoBehaviour
                 }
                 else if (name == "Wind")
                 {
-                    if (skill == 0)
+                    if (_combo == 0)
                     {
 
                     }
@@ -172,7 +189,7 @@ public class SkillManager : MonoBehaviour
                     {
 
                     }
-                    _skillPool[name][skill][i].SetActive(true);
+                    _skillPool[name][_combo][i].SetActive(true);
                     actived++;
                     if (actived >= amount)
                     {
@@ -181,7 +198,7 @@ public class SkillManager : MonoBehaviour
                 }
                 else if (name == "Lightning")
                 {
-                    if (skill == 0)
+                    if (_combo == 0)
                     {
 
                     }
@@ -189,7 +206,7 @@ public class SkillManager : MonoBehaviour
                     {
 
                     }
-                    _skillPool[name][skill][i].SetActive(true);
+                    _skillPool[name][_combo][i].SetActive(true);
                     actived++;
                     if (actived >= amount)
                     {
@@ -205,8 +222,8 @@ public class SkillManager : MonoBehaviour
 
         if (actived < amount)
         {
-            SkillGenerate(name, skill, amount - actived);
-            StartCoroutine(Delay_SkillActive(name, skill, amount - actived));
+            SkillGenerate(name, _combo, amount - actived);
+            StartCoroutine(Delay_SkillActive(name, amount - actived));
         }
     }
 

@@ -18,6 +18,12 @@ public class SkillItemMove : MonoBehaviour
 
     void OnEnable()
     {
+        if (_type != null)
+        {
+            Sprite sprite = SkillManager.instance._skillsIcons.Find(x => x.name == _type);
+            GetComponent<SpriteRenderer>().sprite = sprite;
+        }
+
         _speed = Random.Range(_minSpeed, _maxSpeed);
 
         if (_wall == 0)
@@ -92,8 +98,8 @@ public class SkillItemMove : MonoBehaviour
         }
         else if (collision.tag == "Player")
         {
+            StartCoroutine(SkillManager.instance.Delay_SkillActive(_type, 1));
             SkillManager.instance.ItemActiveTest();
-            print(_type);
         }
     }
 
