@@ -28,12 +28,5 @@ public class Skill_Lightning_1_Child : Skill
         this.gameObject.SetActive(false);
 
         yield return new WaitForEndOfFrame();
-    }
-
-    public override void OnTriggerEnter2D(Collider2D collision)
-    {   
-        if(collision.CompareTag("Enemy")) {
-            collision.gameObject.SetActive(false);
-        }
-    }    
+    }  
 }
