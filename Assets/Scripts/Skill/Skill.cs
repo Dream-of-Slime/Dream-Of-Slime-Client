@@ -21,6 +21,8 @@ public class Skill : MonoBehaviour
         if (collision.CompareTag("Enemy"))
         {
             collision.gameObject.SetActive(false);
+            ScoreManager.score++;
+            Debug.Log(ScoreManager.score);
         }
     }
 }
