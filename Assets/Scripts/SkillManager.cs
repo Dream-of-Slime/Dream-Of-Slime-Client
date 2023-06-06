@@ -177,9 +177,36 @@ public class SkillManager : MonoBehaviour
             {
                 if (name == "Fire")
                 {
-                    _skillPool[name][_combo][i].transform.position = _player.position;
-                    _skillPool[name][_combo][i].transform.rotation = _player.rotation;
-                    _skillPool[name][_combo][i].SetActive(true);
+                    if (_combo == 2)
+                    {
+                        int actived2 = 0;
+                        for (int j = 0; j < _skillPool[name][_combo].Count; j++)
+                        {
+                            if (!_skillPool[name][_combo][j].activeSelf)
+                            {
+                                _skillPool[name][_combo][j].transform.position = _player.position;
+                                _skillPool[name][_combo][j].transform.rotation = _player.rotation;
+                                _skillPool[name][_combo][j].transform.eulerAngles = new Vector3(_skillPool[name][_combo][j].transform.eulerAngles.x, _skillPool[name][_combo][j].transform.eulerAngles.y, _skillPool[name][_combo][j].transform.eulerAngles.z + 120 * actived2);
+                                _skillPool[name][_combo][j].SetActive(true);
+                                actived2++;
+                                if (actived2 > 2)
+                                {
+                                    break;
+                                }
+                            }
+                        }
+                        actived++;
+                        if (actived >= amount)
+                        {
+                            goto Point1;
+                        }
+                    }
+                    else
+                    {
+                        _skillPool[name][_combo][i].transform.position = _player.position;
+                        _skillPool[name][_combo][i].transform.rotation = _player.rotation;
+                        _skillPool[name][_combo][i].SetActive(true);
+                    }
                     actived++;
                     if (actived >= amount)
                     {
