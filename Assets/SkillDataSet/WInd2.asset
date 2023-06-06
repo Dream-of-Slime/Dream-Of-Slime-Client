@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: WInd2
   m_EditorClassIdentifier: 
   _usingTime: 0
-  _attackDuration: 0.4
+  _attackDuration: 1.5
   _attackCount: 0
   _speed: 0

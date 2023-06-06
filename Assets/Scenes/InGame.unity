@@ -286,6 +286,7 @@ MonoBehaviour:
   - {fileID: 999461277497173596, guid: c37b5459fe8168948871f8f3b7e87a2b, type: 3}
   _skillsWind:
   - {fileID: 999461277497173596, guid: 47165204e5a990d4f9f6e74fe3253dbb, type: 3}
+  - {fileID: 999461277497173596, guid: 42ee838c9a3003d4faf55548a3e1080b, type: 3}
   _skillsLightning:
   - {fileID: 3906177114209242539, guid: c3028a758fb14464ab70bde2af88cbb3, type: 3}
   - {fileID: 3906177114209242539, guid: ee919d18b96e80e4492215f3732ce941, type: 3}
