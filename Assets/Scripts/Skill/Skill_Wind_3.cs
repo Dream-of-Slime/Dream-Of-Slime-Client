@@ -29,7 +29,7 @@ public class Skill_Wind_3 : Skill_Wind_1
         }
 
         for(int i=0;i<SkillData._attackCount;i++){
-            WindShotChild[i].transform.position = _player.position + _player.transform.forward;
+            WindShotChild[i].transform.position = _player.position;
             float st = _player.eulerAngles.z + 120f * i;
             WindShotChild[i].transform.eulerAngles = new Vector3(_player.eulerAngles.x, _player.eulerAngles.y, st);
             WindShotChild[i].SetActive(true);
