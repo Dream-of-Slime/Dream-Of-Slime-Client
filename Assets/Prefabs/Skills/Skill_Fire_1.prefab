@@ -100,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillData: {fileID: 11400000, guid: 15e409264703c6144bffff9d9f49a570, type: 2}
+  FireChild: []
+  _skillsFirePrefab: {fileID: 0}
 --- !u!70 &519287303024502884
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

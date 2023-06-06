@@ -1952,6 +1952,7 @@ MonoBehaviour:
   EnemySamples:
   - {fileID: 3466728411141179040, guid: ddb1ec4ab88d0814aab38e88b24d3118, type: 3}
   EnemyParent: {fileID: 1482558749}
+  _spawnTime: 0.2
 --- !u!4 &1555083174
 Transform:
   m_ObjectHideFlags: 0

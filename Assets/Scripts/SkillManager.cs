@@ -24,7 +24,7 @@ public class SkillManager : MonoBehaviour
 
     Dictionary<string, List<GameObject>> _skills;
     Dictionary<string, List<List<GameObject>>> _skillPool;
-    [SerializeField] Transform _skillParent;
+    public Transform _skillParent;
 
     [HideInInspector] public List<GameObject> _activedItem;
 

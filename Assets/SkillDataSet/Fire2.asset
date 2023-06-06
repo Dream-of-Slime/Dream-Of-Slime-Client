@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Fire2
   m_EditorClassIdentifier: 
   _usingTime: 1
-  _attackDuration: 0.5
-  _attackCount: 20
+  _attackDuration: 0.05
+  _attackCount: 30
   _speed: 10

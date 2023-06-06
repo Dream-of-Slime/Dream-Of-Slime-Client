@@ -13,6 +13,8 @@ namespace Slime
 
         [SerializeField] Transform EnemyParent;
 
+        [SerializeField] float _spawnTime;
+
         int SpawnOffset = 100;
 
         void Awake()
@@ -41,7 +43,7 @@ namespace Slime
         {
             while (true)
             {
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(_spawnTime);
                 EnemyActive(0, 1);
             }
         }
