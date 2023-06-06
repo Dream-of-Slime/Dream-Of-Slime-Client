@@ -120,7 +120,7 @@ public class SkillManager : MonoBehaviour
         int first = -1;
         int second = -1;
 
-        while (actived < 1)
+        while (actived < 3)
         {
             int random = Random.Range(0, _skillPool.Count);
             if (first == second && first == random) continue;
