@@ -58,11 +58,19 @@ public class PlayerMove : MonoBehaviour
 
     void GyroMove(){
         dir.x = Input.acceleration.x;
-        dir.y = Input.acceleration.y;        
+        dir.y = Input.acceleration.y;
     }
 
     void KeyBoardMove(){
         dir.x = Input.GetAxis("Horizontal");
         dir.y = Input.GetAxis("Vertical");
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Enemy")
+        {
+            ResultManager.instance.GameOver();
+        }
     }
 }

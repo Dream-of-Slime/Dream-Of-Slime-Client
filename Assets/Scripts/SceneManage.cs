@@ -5,8 +5,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneManage : MonoBehaviour
 {
-    public void ToInGameScene()
+    public void Btn_ToInGameScene()
     {
+        Time.timeScale = 1;
+        ScoreManager.score = 0;
         SceneManager.LoadScene("InGame");
+    }
+
+    public void Btn_ToLobbyScene()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Lobby");
     }
 }

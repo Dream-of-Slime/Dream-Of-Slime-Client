@@ -30,6 +30,8 @@ public class SkillManager : MonoBehaviour
 
     int SpawnOffset = 100;
     int _combo = 0;
+    int _maxCombo = 0;
+    [HideInInspector] public int _highestCombo = 0;
 
     string _prevSkill = null;
 
@@ -156,11 +158,18 @@ public class SkillManager : MonoBehaviour
         if (_prevSkill == name)
         {
             _combo = Mathf.Clamp(_combo + 1, 0, _skillPool[name].Count - 1);
+            _maxCombo++;
         }
         else
         {
             _combo = 0;
+            _maxCombo = 1;
             _prevSkill = name;
+        }
+
+        if (_maxCombo > _highestCombo)
+        {
+            _highestCombo = _maxCombo;
         }
 
         for (int i = 0; i < _skillPool[name][_combo].Count; i++)

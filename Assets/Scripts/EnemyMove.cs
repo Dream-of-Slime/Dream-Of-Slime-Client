@@ -20,7 +20,6 @@ public class EnemyMove : MonoBehaviour
 
     void OnEnable()
     {
-
         _dir = (_player.transform.position - transform.position);
         _dir = _dir.normalized;
         _angle = Mathf.Atan2(-_dir.x, _dir.y) * Mathf.Rad2Deg;
