@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.UIElements;
 
 public class SkillManager : MonoBehaviour
@@ -14,6 +15,8 @@ public class SkillManager : MonoBehaviour
 
     public GameObject _skillItem;
     List<GameObject> _skillItemPool;
+
+    [SerializeField] Text _comboText;
 
     public List<GameObject> _skillsFire;
     public List<GameObject> _skillsWind;
@@ -165,6 +168,8 @@ public class SkillManager : MonoBehaviour
             _maxCombo = 1;
             _prevSkill = name;
         }
+
+        _comboText.text = "Combo : " + (_combo + 1).ToString();
 
         if (_maxCombo > _highestCombo)
         {
