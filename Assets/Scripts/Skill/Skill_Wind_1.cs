@@ -6,7 +6,7 @@ public class Skill_Wind_1 : Skill
 {
     private bool is_first = true;
 
-    Transform _player;
+    [HideInInspector] public Transform _player;
 
     public override void Update()
     {
@@ -15,7 +15,7 @@ public class Skill_Wind_1 : Skill
         transform.position = _player.transform.position;
     }
 
-    void OnEnable() {
+    public virtual void OnEnable() {
         if(is_first) {
             is_first = false;
             _player = GameObject.FindGameObjectWithTag("Player").transform;
