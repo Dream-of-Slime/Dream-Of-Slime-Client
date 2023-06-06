@@ -17,4 +17,9 @@ public class SceneManage : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene("Lobby");
     }
+    
+    public void Show_Ranking()
+    {
+        GPGSBinder.Inst.ShowTargetLeaderboardUI(GPGSIds.leaderboard_ranking);
+    }
 }
