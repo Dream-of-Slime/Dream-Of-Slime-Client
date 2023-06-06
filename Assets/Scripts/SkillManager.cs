@@ -178,8 +178,7 @@ public class SkillManager : MonoBehaviour
             {
                 if (name == "Fire")
                 {
-                    float random = Random.Range(-0.2f, 0.2f);
-                    _skillPool[name][_combo][i].transform.position = _player.position + _player.transform.forward * random;
+                    _skillPool[name][_combo][i].transform.position = _player.position;
                     _skillPool[name][_combo][i].transform.rotation = _player.rotation;
                     _skillPool[name][_combo][i].SetActive(true);
                     actived++;
