@@ -284,6 +284,7 @@ MonoBehaviour:
   _skillsFire:
   - {fileID: 999461277497173596, guid: dd55d36b25f1c774388d0512c16211ed, type: 3}
   - {fileID: 2102970010251516269, guid: 03a82ae575966804faae055e75c8a4af, type: 3}
+  - {fileID: 2102970010251516269, guid: de89ef5f9f2884f438c6b8ff3d7023ef, type: 3}
   _skillsWind:
   - {fileID: 999461277497173596, guid: 47165204e5a990d4f9f6e74fe3253dbb, type: 3}
   - {fileID: 999461277497173596, guid: 42ee838c9a3003d4faf55548a3e1080b, type: 3}
