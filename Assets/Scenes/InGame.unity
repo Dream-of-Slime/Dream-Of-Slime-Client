@@ -283,10 +283,14 @@ MonoBehaviour:
   _skillItem: {fileID: 4535571181704424393, guid: c115376d3b9a3094aabf883d596f35c2, type: 3}
   _skillsFire:
   - {fileID: 999461277497173596, guid: dd55d36b25f1c774388d0512c16211ed, type: 3}
+  - {fileID: 999461277497173596, guid: c37b5459fe8168948871f8f3b7e87a2b, type: 3}
   _skillsWind:
   - {fileID: 999461277497173596, guid: 47165204e5a990d4f9f6e74fe3253dbb, type: 3}
+  - {fileID: 999461277497173596, guid: 42ee838c9a3003d4faf55548a3e1080b, type: 3}
   _skillsLightning:
   - {fileID: 3906177114209242539, guid: c3028a758fb14464ab70bde2af88cbb3, type: 3}
+  - {fileID: 3906177114209242539, guid: ee919d18b96e80e4492215f3732ce941, type: 3}
+  - {fileID: 3906177114209242539, guid: fdba15338231a4d4fb6a4ad055a1073a, type: 3}
   _skillsIcons:
   - {fileID: 21300000, guid: f56b19e6bacbd724284ac7b7a712306f, type: 3}
   - {fileID: 21300000, guid: 70617ec0d1c7e9044b7a6736862142e7, type: 3}
